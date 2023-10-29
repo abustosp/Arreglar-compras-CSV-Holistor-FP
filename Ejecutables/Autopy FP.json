@@ -80,6 +80,10 @@
   {
    "optionDest": "pathex",
    "value": "F:/ENV/FedePerret/Lib/site-packages"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/ABP/Desktop/Arreglo-Compras-CSV-Holistor/CUITs a Filtrar.txt;."
   }
  ],
  "nonPyinstallerOptions": {
