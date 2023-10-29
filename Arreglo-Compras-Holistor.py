@@ -7,6 +7,14 @@ from tkinter.messagebox import showinfo
 import tkinter as tk
 import tkinter.ttk as ttk
 
+# Leer el txt de 'CUITs a Filtrar.txt' y crear una lista con los CUITs del tipo np.int64
+with open('CUITs a Filtrar.txt') as f:
+    cuit = f.read().splitlines()
+    cuit = [np.int64(i) for i in cuit]
+
+def Abrir_TXT_Filtrar():
+    os.startfile("CUITs a Filtrar.txt")
+
 # Definir la función que procesa un archivo
 def procesar_archivo(archivo):
     try:
@@ -21,12 +29,14 @@ def procesar_archivo(archivo):
         #df.index = pd.to_datetime(df.index).strftime('%d/%m/%Y')
 
         #Borrar fact B (ver porque me borra las A de las misma fecha!)
-        df = df[df["Comprobante"] != 6]
-        df = df[df["Comprobante"] != 7]
-        df = df[df["Comprobante"] != 8]
-        #Borrar Obras Sociales (agregar cuit OS)
-        df = df[df["cuit"] != 30707808418]
-        df = df[df["cuit"] != 30589486648]
+        Fac_B = [6, 7, 8]
+        for i in Fac_B:
+            df = df[df["Comprobante"] != i]
+
+        df['cuit'] = df['cuit'].astype(np.int64)    
+
+        # Eliminar los Cuits que aparecen en el txt
+        df = df[~df['cuit'].isin(cuit)]
 
         #crear base para cargar comprobantes por alicuotas
         df.insert(4, "nueva",None), df.insert(5, "nueva2",None)
@@ -170,6 +180,9 @@ class GuiApp:
         self.Abir_carpeta_CSV = ttk.Button(Toplevel_1)
         self.Abir_carpeta_CSV.configure(text='Seleccionar carpeta con CSV' , command=Procesar)
         self.Abir_carpeta_CSV.pack(expand=True, pady=4, side="top")
+        self.Abrir_TXT_Filtrar = ttk.Button(Toplevel_1)
+        self.Abrir_TXT_Filtrar.configure(text='Abrir TXT con CUITs a Filtrar' , command=Abrir_TXT_Filtrar)
+        self.Abrir_TXT_Filtrar.pack(expand=True, pady=4, side="top")
         label1 = ttk.Label(Toplevel_1)
         self.img_LogoEstudioPerret = tk.PhotoImage(
             file="BIN/Logo Estudio Perret.png")
