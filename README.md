@@ -14,7 +14,7 @@ El programa va a pedir seleccionar la Carpeta donde se encuentren los CSV de Com
 
 El mismo se va a encargar de realizar varios pasos como:
 - Eliminar Facturas tipo B
-- Eliminar facturaas provenientes de Obras Sociales
+- Eliminar facturaas provenientes de una lista de cuits a eliminar (por ejemplo: se puede agregar el cuit de un supermercado debido a que existen clientes que suelen pedir facturas A en los mismos pero los bienes no se relacionan con su actividad comercial)
 - Transformar a valores absolutos
 - Adecuar la información para ser exportada
 - Rellenar el XLS del modelo de importación de compras con la información procesada
